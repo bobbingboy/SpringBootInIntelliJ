@@ -10,7 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -26,8 +28,33 @@ public class LoginController {
         return "register";
     }
 
+    @GetMapping("/")
+    public String toIndex() {
+        return "index";
+    }
+
     @GetMapping("/login")
     public String toLogin() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginPost(@RequestParam String username,
+                            @RequestParam String password,
+                            HttpSession session) {
+        User user = userService.findByUsernameAndPassword(username, password);
+
+        if(user != null) {
+            session.setAttribute("user", user);
+            return "index";
+        }
+        return "login";
+
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
         return "login";
     }
 
