@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>404</title>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <linK rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+<body>
+    <div class="container" style="max-width: 600px;margin-top: 100px" >
+        <div class="jumbotron">
+            <h2>404</h2>
+            <P>Sorry, Information[<code th:text="${#httpServletRequest.getAttribute('javax.servlet.error.request_uri')}"></code>] you ask for is not found.</P>
+
+        </div>
+    </div>
+
+
+</body>
+</html>
