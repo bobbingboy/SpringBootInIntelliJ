@@ -4,6 +4,8 @@ import com.bobbingboy.springbootdemo.resource.exception.InvalidRequestException;
 import com.bobbingboy.springbootdemo.resource.ErrorResource;
 import com.bobbingboy.springbootdemo.resource.FieldResource;
 import com.bobbingboy.springbootdemo.resource.InvalidErrorResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import java.util.List;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     //處理Not Found異常
     @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
     @ResponseBody
@@ -26,7 +30,10 @@ public class ApiExceptionHandler {
 
         ErrorResource errorResource = new ErrorResource(e.getMessage());
 
-        return new ResponseEntity<Object>(errorResource, HttpStatus.NOT_FOUND);
+        ResponseEntity result = new ResponseEntity<Object>(errorResource, HttpStatus.NOT_FOUND);
+        logger.warn("Return  ------ {}", result);
+
+        return result;
     }
 
     //處理參數驗證失敗
@@ -45,13 +52,17 @@ public class ApiExceptionHandler {
             fieldResources.add(fieldResource);
         }
         InvalidErrorResource invalidErrorResource = new InvalidErrorResource(e.getMessage(), fieldResources);
-        return new ResponseEntity<Object>(invalidErrorResource, HttpStatus.BAD_REQUEST);
+        ResponseEntity result = new ResponseEntity<Object>(invalidErrorResource, HttpStatus.NOT_FOUND);
+        logger.warn("Return  ------ {}", result);
+        return result;
     }
 
     //處理全局異常
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<?> handlerException(Exception e) {
+        logger.error("ERROR ---- {}", e.getMessage());
+
         return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
