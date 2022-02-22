@@ -1,8 +1,6 @@
 package com.bobbingboy.springbootdemo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -14,6 +12,10 @@ public class Author {
     private String nickName;
     private String phone;
     private Date signDate;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_wallet_id")
+    private Wallet wallet;
 
     public Author() {
     }
@@ -48,5 +50,13 @@ public class Author {
 
     public void setSignDate(Date signDate) {
         this.signDate = signDate;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 }

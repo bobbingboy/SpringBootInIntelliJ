@@ -17,6 +17,8 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     List<Author> findDistinctByNickNameIgnoreCaseOrPhoneOrderBySignDateDesc(String nickName, String phone);
 
+    Author findById(long id);
+
     @Query("select a from Author a where a.phone = ?1")
     List<Author> findByPhone(String phone);
 

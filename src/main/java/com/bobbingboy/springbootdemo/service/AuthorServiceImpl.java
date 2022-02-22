@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class AuthorServiceImpl implements AuthorService{
@@ -29,5 +30,31 @@ public class AuthorServiceImpl implements AuthorService{
 
 
         return author2;
+    }
+
+    @Override
+    public Author saveAuthor(Author author) {
+        return authorRepository.save(author);
+    }
+
+    @Override
+    public Author updateAuthor(Author author) {
+        return authorRepository.save(author);
+    }
+
+    @Override
+    public Optional<Author> findAuthor(Long id) {
+
+        return authorRepository.findById(id);
+    }
+
+    @Override
+    public void deleteAuthor(long id) {
+
+    }
+
+    @Override
+    public Author findById(long id) {
+        return authorRepository.findById(id);
     }
 }
