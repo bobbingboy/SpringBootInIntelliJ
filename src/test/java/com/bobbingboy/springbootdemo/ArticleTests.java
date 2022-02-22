@@ -50,7 +50,7 @@ public class ArticleTests {
 
     @Test
     public void findArticle() {
-        Article article = articleService.findArticle(49);
+        Article article = articleService.findArticle(46);
         System.out.println(JSON.toJSONString(article, true));
     }
 
