@@ -9,12 +9,15 @@ public class Article {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String title;
     private String content;
     @OneToMany(mappedBy = "article", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 //    在OneToMany中，Many方調用數據的情況莫認為FetchType.LAZY，也就是在執行getComment方法時才會從資料庫中撈出數據
+
+    @ManyToMany(mappedBy = "articles")
+    private List<Topic> topics = new ArrayList<>();
 
     public void addComment(Comment comment) {
         comment.setArticle(this);

@@ -8,7 +8,7 @@ public class Author {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String nickName;
     private String phone;
     private Date signDate;

@@ -10,7 +10,7 @@ public class Comment {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String content;
 
     @ManyToOne

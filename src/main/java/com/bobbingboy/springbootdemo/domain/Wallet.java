@@ -11,7 +11,7 @@ public class Wallet {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private BigDecimal balance;
 
